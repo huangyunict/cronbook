@@ -1,0 +1,76 @@
+[build-system]
+requires = ["hatchling", "hatch-vcs"]
+build-backend = "hatchling.build"
+
+[project]
+name = "cronbook"
+description = "Cron job management"
+readme = "README.md"
+authors = [
+    { name = "Yun Huang", email = "huangyunict@gmail.com" },
+]
+requires-python = ">=3.12"
+license = "MIT"
+license-files = ["LICENSE"]
+dependencies = []
+dynamic = ["version"]
+
+[project.urls]
+Homepage = "https://github.com/huangyunict/cronbook"
+Repository = "https://github.com/huangyunict/cronbook"
+Issues = "https://github.com/huangyunict/cronbook/issues"
+
+[project.scripts]
+cronbook = "cronbook.main:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/cronbook"]
+
+[tool.hatch.version]
+source = "vcs"
+
+[tool.hatch.build.hooks.vcs]
+version-file = "src/cronbook/_version.py"
+
+[dependency-groups]
+dev = [
+    # keep-sorted start
+    "mypy>=1.18",
+    "pre-commit",
+    "pytest>=8.4",
+    "ruff>=0.14",
+    # keep-sorted end
+]
+
+[tool.ruff]
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["ANN", "B", "E", "F", "I", "UP"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**" = ["ANN"]
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+warn_unreachable = true
+
+[[tool.mypy.overrides]]
+module = "tests.*"
+disallow_untyped_defs = false
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[[tool.uv.index]]
+name = "testpypi"
+url = "https://test.pypi.org/simple/"
+publish-url = "https://test.pypi.org/legacy/"
+explicit = true
+
+[[tool.uv.index]]
+name = "pypi"
+url = "https://pypi.org/simple/"
+publish-url = "https://upload.pypi.org/legacy/"
+explicit = true

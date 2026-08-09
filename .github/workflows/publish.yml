@@ -1,0 +1,19 @@
+name: publish
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    environment: pypi
+    permissions:
+      id-token: write
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0        # tags must be present for the version
+      - uses: astral-sh/setup-uv@v7
+      - run: uv build
+      - run: uv publish --trusted-publishing always
