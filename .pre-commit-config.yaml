@@ -1,0 +1,20 @@
+# Pre-push hooks at `git push`.
+# Install once with:
+#   uv run pre-commit install --hook-type pre-push
+# Refresh pinned revisions with: uv run pre-commit autoupdate
+default_install_hook_types: [pre-push]
+default_stages: [pre-push]
+
+repos:
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.14.4
+    hooks:
+      - id: ruff-check
+        args: [--fix, --exit-non-zero-on-fix]
+      - id: ruff-format
+
+  - repo: https://github.com/google/keep-sorted
+    rev: v0.6.1
+    hooks:
+      - id: keep-sorted
+        args: [--mode=fix]
