@@ -38,7 +38,7 @@ dev = [
     "mypy>=1.18",
     "pre-commit",
     "pytest>=8.4",
-    "ruff>=0.14",
+    "ruff>=0.16.2",
     # keep-sorted end
 ]
 
